@@ -1,0 +1,148 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-settings-invoice-billing-heading" data-cy="SettingsInvoiceCreateUpdateHeading">Create or edit a Settings Invoice</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_global">Global</label>
+          <input type="text" class="form-control" name="global" id="field_global" data-cy="global" formControlName="global" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_subscription">Subscription</label>
+          <input
+            type="text"
+            class="form-control"
+            name="subscription"
+            id="field_subscription"
+            data-cy="subscription"
+            formControlName="subscription"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_taxPerCent">Tax Per Cent</label>
+          <input
+            type="number"
+            class="form-control"
+            name="taxPerCent"
+            id="field_taxPerCent"
+            data-cy="taxPerCent"
+            formControlName="taxPerCent"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_detailSkipped">Detail Skipped</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="detailSkipped"
+            id="field_detailSkipped"
+            data-cy="detailSkipped"
+            formControlName="detailSkipped"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_manualBillingOnly">Manual Billing Only</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="manualBillingOnly"
+            id="field_manualBillingOnly"
+            data-cy="manualBillingOnly"
+            formControlName="manualBillingOnly"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_billingActive">Billing Active</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="billingActive"
+            id="field_billingActive"
+            data-cy="billingActive"
+            formControlName="billingActive"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_perOrganization">Per Organization</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="perOrganization"
+            id="field_perOrganization"
+            data-cy="perOrganization"
+            formControlName="perOrganization"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fullyAutomatic">Fully Automatic</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="fullyAutomatic"
+            id="field_fullyAutomatic"
+            data-cy="fullyAutomatic"
+            formControlName="fullyAutomatic"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_period">Period</label>
+          <select class="form-control" name="period" formControlName="period" id="field_period" data-cy="period">
+            <option [ngValue]="null"></option>
+            <option value="MONTHLY">MONTHLY</option>
+            <option value="QUARTERLY">QUARTERLY</option>
+            <option value="ANNUAL">ANNUAL</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_locale">Locale</label>
+          <input type="text" class="form-control" name="locale" id="field_locale" data-cy="locale" formControlName="locale" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_paymentTerms">Payment Terms</label>
+          <input
+            type="text"
+            class="form-control"
+            name="paymentTerms"
+            id="field_paymentTerms"
+            data-cy="paymentTerms"
+            formControlName="paymentTerms"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

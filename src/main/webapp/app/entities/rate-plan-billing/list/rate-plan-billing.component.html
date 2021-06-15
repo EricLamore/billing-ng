@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="RatePlanHeading">
+    <span>Rate Plans</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-rate-plan-billing"
+        [routerLink]="['/rate-plan-billing/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Rate Plan </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="ratePlans?.length === 0">
+    <span>No ratePlans found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="ratePlans && ratePlans.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lastUpdate"><span>Last Update</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="commercialName"><span>Commercial Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="base"><span>Base</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="product"><span>Product</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="productRatePlanCharge"><span>Product Rate Plan Charge</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="features"><span>Features</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fixedPrice"><span>Fixed Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="standardModel"><span>Standard Model</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="unitsIncluded"><span>Units Included</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="unitsIncludedPrice"><span>Units Included Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="unitsIncludedDuration"><span>Units Included Duration</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ratePlanId"><span>Rate Plan Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="discountUnitPrice"><span>Discount Unit Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="discountBase"><span>Discount Base</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="prorata"><span>Prorata</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="activationDate"><span>Activation Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="endDate"><span>End Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ratePlanCharges"><span>Rate Plan Charges</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="subscriptionFeatures"><span>Subscription Features</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ratePlan of ratePlans; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/rate-plan-billing', ratePlan.id, 'view']">{{ ratePlan.id }}</a>
+          </td>
+          <td>{{ ratePlan.name }}</td>
+          <td>{{ ratePlan.lastUpdate | formatMediumDate }}</td>
+          <td>{{ ratePlan.description }}</td>
+          <td>{{ ratePlan.commercialName }}</td>
+          <td>{{ ratePlan.base }}</td>
+          <td>{{ ratePlan.product }}</td>
+          <td>{{ ratePlan.productRatePlanCharge }}</td>
+          <td>{{ ratePlan.features }}</td>
+          <td>{{ ratePlan.version }}</td>
+          <td>{{ ratePlan.fixedPrice }}</td>
+          <td>{{ ratePlan.standardModel }}</td>
+          <td>{{ ratePlan.unitsIncluded }}</td>
+          <td>{{ ratePlan.unitsIncludedPrice }}</td>
+          <td>{{ ratePlan.unitsIncludedDuration }}</td>
+          <td>{{ ratePlan.ratePlanId }}</td>
+          <td>{{ ratePlan.discountUnitPrice }}</td>
+          <td>{{ ratePlan.discountBase }}</td>
+          <td>{{ ratePlan.prorata }}</td>
+          <td>{{ ratePlan.activationDate | formatMediumDate }}</td>
+          <td>{{ ratePlan.endDate | formatMediumDate }}</td>
+          <td>{{ ratePlan.ratePlanCharges }}</td>
+          <td>{{ ratePlan.subscriptionFeatures }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/rate-plan-billing', ratePlan.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/rate-plan-billing', ratePlan.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(ratePlan)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="ratePlans && ratePlans.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

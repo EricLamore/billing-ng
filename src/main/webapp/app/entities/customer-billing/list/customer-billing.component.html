@@ -1,0 +1,128 @@
+<div>
+  <h2 id="page-heading" data-cy="CustomerHeading">
+    <span>Customers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-customer-billing"
+        [routerLink]="['/customer-billing/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Customer </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="customers?.length === 0">
+    <span>No customers found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="customers && customers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lastUpdate"><span>Last Update</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="taxNo"><span>Tax No</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="thirdPartyAccountingCode"><span>Third Party Accounting Code</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="siret"><span>Siret</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ownerId"><span>Owner Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="isParticular"><span>Is Particular</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="personReferers"><span>Person Referers</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="meansPayments"><span>Means Payments</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="subscriptions"><span>Subscriptions</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usages"><span>Usages</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="settingsInvoice"><span>Settings Invoice</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="partner"><span>Partner</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="partnerId"><span>Partner Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="customerId"><span>Customer Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="customerName"><span>Customer Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/customer-billing', customer.id, 'view']">{{ customer.id }}</a>
+          </td>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.lastUpdate | formatMediumDate }}</td>
+          <td>{{ customer.description }}</td>
+          <td>{{ customer.taxNo }}</td>
+          <td>{{ customer.thirdPartyAccountingCode }}</td>
+          <td>{{ customer.siret }}</td>
+          <td>{{ customer.ownerId }}</td>
+          <td>{{ customer.isParticular }}</td>
+          <td>{{ customer.personReferers }}</td>
+          <td>{{ customer.meansPayments }}</td>
+          <td>{{ customer.subscriptions }}</td>
+          <td>{{ customer.usages }}</td>
+          <td>{{ customer.settingsInvoice }}</td>
+          <td>{{ customer.partner }}</td>
+          <td>{{ customer.partnerId }}</td>
+          <td>{{ customer.customerId }}</td>
+          <td>{{ customer.customerName }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/customer-billing', customer.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/customer-billing', customer.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(customer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="customers && customers.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
