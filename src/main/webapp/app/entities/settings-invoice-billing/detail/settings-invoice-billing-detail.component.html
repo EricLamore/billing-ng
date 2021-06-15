@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="settingsInvoice">
+      <h2 data-cy="settingsInvoiceDetailsHeading"><span>Settings Invoice</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.id }}</span>
+        </dd>
+        <dt><span>Global</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.global }}</span>
+        </dd>
+        <dt><span>Subscription</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.subscription }}</span>
+        </dd>
+        <dt><span>Tax Per Cent</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.taxPerCent }}</span>
+        </dd>
+        <dt><span>Detail Skipped</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.detailSkipped }}</span>
+        </dd>
+        <dt><span>Manual Billing Only</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.manualBillingOnly }}</span>
+        </dd>
+        <dt><span>Billing Active</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.billingActive }}</span>
+        </dd>
+        <dt><span>Per Organization</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.perOrganization }}</span>
+        </dd>
+        <dt><span>Fully Automatic</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.fullyAutomatic }}</span>
+        </dd>
+        <dt><span>Period</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.period }}</span>
+        </dd>
+        <dt><span>Locale</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.locale }}</span>
+        </dd>
+        <dt><span>Payment Terms</span></dt>
+        <dd>
+          <span>{{ settingsInvoice.paymentTerms }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/settings-invoice-billing', settingsInvoice.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

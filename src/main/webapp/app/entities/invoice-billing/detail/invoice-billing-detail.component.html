@@ -1,0 +1,136 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="invoice">
+      <h2 data-cy="invoiceDetailsHeading"><span>Invoice</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ invoice.id }}</span>
+        </dd>
+        <dt><span>Human Id</span></dt>
+        <dd>
+          <span>{{ invoice.humanId }}</span>
+        </dd>
+        <dt><span>Type</span></dt>
+        <dd>
+          <span>{{ invoice.type }}</span>
+        </dd>
+        <dt><span>Customer Id</span></dt>
+        <dd>
+          <span>{{ invoice.customerId }}</span>
+        </dd>
+        <dt><span>Customer Name</span></dt>
+        <dd>
+          <span>{{ invoice.customerName }}</span>
+        </dd>
+        <dt><span>Month</span></dt>
+        <dd>
+          <span>{{ invoice.month }}</span>
+        </dd>
+        <dt><span>Year</span></dt>
+        <dd>
+          <span>{{ invoice.year }}</span>
+        </dd>
+        <dt><span>Emission Date</span></dt>
+        <dd>
+          <span>{{ invoice.emissionDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Items</span></dt>
+        <dd>
+          <span>{{ invoice.items }}</span>
+        </dd>
+        <dt><span>Vat</span></dt>
+        <dd>
+          <span>{{ invoice.vat }}</span>
+        </dd>
+        <dt><span>Due Date</span></dt>
+        <dd>
+          <span>{{ invoice.dueDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Date To Send</span></dt>
+        <dd>
+          <span>{{ invoice.dateToSend | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Send Date</span></dt>
+        <dd>
+          <span>{{ invoice.sendDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Dunning Send Date</span></dt>
+        <dd>
+          <span>{{ invoice.dunningSendDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Credit Note Send Date</span></dt>
+        <dd>
+          <span>{{ invoice.creditNoteSendDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ invoice.status }}</span>
+        </dd>
+        <dt><span>Comments</span></dt>
+        <dd>
+          <span>{{ invoice.comments }}</span>
+        </dd>
+        <dt><span>Pvalidation Date</span></dt>
+        <dd>
+          <span>{{ invoice.pvalidationDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Validator Id</span></dt>
+        <dd>
+          <span>{{ invoice.validatorId }}</span>
+        </dd>
+        <dt><span>Payment</span></dt>
+        <dd>
+          <span>{{ invoice.payment }}</span>
+        </dd>
+        <dt><span>Payments Historic</span></dt>
+        <dd>
+          <span>{{ invoice.paymentsHistoric }}</span>
+        </dd>
+        <dt><span>Payment Method</span></dt>
+        <dd>
+          <span>{{ invoice.paymentMethod }}</span>
+        </dd>
+        <dt><span>Refund</span></dt>
+        <dd>
+          <span>{{ invoice.refund }}</span>
+        </dd>
+        <dt><span>Purchase Order</span></dt>
+        <dd>
+          <span>{{ invoice.purchaseOrder }}</span>
+        </dd>
+        <dt><span>Message</span></dt>
+        <dd>
+          <span>{{ invoice.message }}</span>
+        </dd>
+        <dt><span>Additional Items</span></dt>
+        <dd>
+          <span>{{ invoice.additionalItems }}</span>
+        </dd>
+        <dt><span>Total Price Gross</span></dt>
+        <dd>
+          <span>{{ invoice.totalPriceGross }}</span>
+        </dd>
+        <dt><span>Refund Amount</span></dt>
+        <dd>
+          <span>{{ invoice.refundAmount }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/invoice-billing', invoice.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="paymentMethod">
+      <h2 data-cy="paymentMethodDetailsHeading"><span>Payment Method</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ paymentMethod.id }}</span>
+        </dd>
+        <dt><span>Type Of Mean</span></dt>
+        <dd>
+          <span>{{ paymentMethod.typeOfMean }}</span>
+        </dd>
+        <dt><span>Account Id</span></dt>
+        <dd>
+          <span>{{ paymentMethod.accountId }}</span>
+        </dd>
+        <dt><span>Iban</span></dt>
+        <dd>
+          <span>{{ paymentMethod.iban }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/payment-method-billing', paymentMethod.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
